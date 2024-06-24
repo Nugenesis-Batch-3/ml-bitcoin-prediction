@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 numpy = "*"
 pandas = "*"
+gunicorn = "*"
 
 [dev-packages]
 black = "*"
