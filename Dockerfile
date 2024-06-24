@@ -5,7 +5,7 @@ FROM python:3
 WORKDIR /app
 
 # Copy the requirements file into the container
-COPY requirements.txt requirements.txt
+COPY requirements.txt .
 
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
@@ -15,6 +15,9 @@ COPY . .
 
 # Expose the port that the app runs on
 EXPOSE 5000
+
+# Define environment variable
+ENV FLASK_APP=app.py
 
 # Command to run the application with Gunicorn
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"]

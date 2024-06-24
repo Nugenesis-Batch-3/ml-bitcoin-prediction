@@ -13,6 +13,7 @@ gunicorn = "*"
 black = "*"
 pytest = "*"
 flake8 = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.12"
