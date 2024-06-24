@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the requirements file into the container
 COPY requirements.txt .
 
+# Install Pipenv
+RUN pipenv install --deploy --ignore-pipfile
+
 # Install the dependencies
 RUN pip install -r requirements.txt
 
