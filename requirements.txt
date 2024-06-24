@@ -1,5 +1,5 @@
-flask==3.0.3; python_version >= '3.8'
-gunicorn==22.0.0; python_version >= '3.7'
-numpy==2.0.0; python_version >= '3.9'
-packaging==24.1; python_version >= '3.8'
-pandas==2.2.2; python_version >= '3.9'
+flask==3.0.3
+gunicorn==22.0.0
+numpy==2.0.0
+packaging==24.1
+pandas==2.2.2
