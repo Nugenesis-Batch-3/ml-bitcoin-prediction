@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Run tests
+        run: |
+          pipenv run pytest
+
+      -name: Build Docker image
+        run: |
+          docker build -t ml-app .
+          docker run -d -p 5000:5000 ml-app
+          docker ps -a
+
+      - name: Push Docker image to Docker Hub
+        if: github.ref == 'refs/heads/master'
+        env: 
+          DOCKER_USERNAME: ${{ secrets.RENDER_API_KEY }}
+        run: |
+        docker login --username=_ --password-stdin registry.render.com <<< ${{ secrets.RENDER_API_KEY }}
+        docker tag myapp:latest registry.render.com/<your-render-service-name>/web
+        docker push registry.render.com/<your-render-service-name>/web
