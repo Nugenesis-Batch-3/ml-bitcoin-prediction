@@ -8,6 +8,7 @@ pandas = "*"
 numpy = "*"
 
 [dev-packages]
+gunicorn = "*"
 
 [requires]
 python_version = "3.12"
