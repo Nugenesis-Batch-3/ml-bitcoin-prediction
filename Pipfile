@@ -4,12 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
-numpy = "*"
+flask = "*"
+pylint = "*"
 
 [dev-packages]
-gunicorn = "*"
-flask = "*"
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.12"
+python_full_version = "3.12.4"

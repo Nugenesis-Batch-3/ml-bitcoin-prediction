@@ -1,16 +1,27 @@
-blinker==1.8.2
-click==8.1.7
-colorama==0.4.6
-Flask==3.0.3
-gunicorn==22.0.0
-itsdangerous==2.2.0
-Jinja2==3.1.4
-MarkupSafe==2.1.5
-numpy==2.0.0
-packaging==24.1
-pandas==2.2.2
-python-dateutil==2.9.0.post0
-pytz==2024.1
-six==1.16.0
-tzdata==2024.1
-Werkzeug==3.0.3
+################################################################################
+# This requirements file has been automatically generated from `Pipfile` with
+# `pipenv-to-requirements`
+#
+#
+# This has been done to maintain backward compatibility with tools and services
+# that do not support `Pipfile` yet.
+#
+# Do NOT edit it directly, use `pipenv install [-d]` to modify `Pipfile` and
+# `Pipfile.lock` and then regenerate `requirements*.txt`.
+################################################################################
+
+astroid==3.2.2 ; python_full_version >= '3.8.0'
+blinker==1.8.2 ; python_version >= '3.8'
+click==8.1.7 ; python_version >= '3.7'
+colorama==0.4.6 ; sys_platform == 'win32'
+dill==0.3.8 ; python_version >= '3.11'
+flask==3.0.3 ; python_version >= '3.8'
+isort==5.13.2 ; python_full_version >= '3.8.0'
+itsdangerous==2.2.0 ; python_version >= '3.8'
+jinja2==3.1.4 ; python_version >= '3.7'
+markupsafe==2.1.5 ; python_version >= '3.7'
+mccabe==0.7.0 ; python_version >= '3.6'
+platformdirs==4.2.2 ; python_version >= '3.8'
+pylint==3.2.5 ; python_full_version >= '3.8.0'
+tomlkit==0.12.5 ; python_version >= '3.7'
+werkzeug==3.0.3 ; python_version >= '3.8'
