@@ -39,6 +39,19 @@ Activate the pipenv shell:
 pipenv shell
 ```
 
+Create a `.env` file in the project root directory and add The following:
+
+```
+# FLASK Config
+FLASK_APP=app.py
+FLASK_ENV=development
+FLASK_DEBUG = 1
+
+# MongoDB Config
+MONGO_URI="mongodb+srv://nugenesis:z5MGlmxXAdKFHlAd@bitcoinpredictioncluste.qzcxmte.mongodb.net/?retryWrites=true&w=majority&appName=BitcoinPredictionCluster"
+
+```
+
 Run the Flask application:
 
 ```bash
