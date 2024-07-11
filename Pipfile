@@ -6,12 +6,14 @@ name = "pypi"
 [packages]
 flask = "*"
 pylint = "*"
+gunicorn = "*"
 
 [dev-packages]
 pandas = "*"
 numpy = "*"
 matplotlib = "*"
 scikit-learn = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.12"
