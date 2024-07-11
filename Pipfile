@@ -5,13 +5,14 @@ name = "pypi"
 
 [packages]
 flask = "*"
-numpy = "*"
-pandas = "*"
+pylint = "*"
 
 [dev-packages]
-black = "*"
-pytest = "*"
-flake8 = "*"
+pandas = "*"
+numpy = "*"
+matplotlib = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.12"
+python_full_version = "3.12.4"
