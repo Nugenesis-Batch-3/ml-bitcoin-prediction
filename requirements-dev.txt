@@ -12,7 +12,8 @@
 
 contourpy==1.2.1 ; python_version >= '3.9'
 cycler==0.12.1 ; python_version >= '3.8'
-fonttools==4.53.0 ; python_version >= '3.8'
+fonttools==4.53.1 ; python_version >= '3.8'
+gunicorn==22.0.0 ; python_version >= '3.7'
 joblib==1.4.2 ; python_version >= '3.8'
 kiwisolver==1.4.5 ; python_version >= '3.7'
 matplotlib==3.9.1 ; python_version >= '3.9'
