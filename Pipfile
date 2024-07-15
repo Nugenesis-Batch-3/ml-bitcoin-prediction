@@ -27,6 +27,9 @@ praw = "*"
 bs4 = "*"
 yfinance = "*"
 
+[scripts]
+post-install = "./post_install.sh"
+
 [requires]
 python_version = "3.11"
 python_full_version = "3.11.9"
