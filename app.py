@@ -10,6 +10,8 @@ app = Flask(__name__)
 FLASK_APP = os.getenv("FLASK_APP")
 FLASK_ENV = os.getenv("FLASK_ENV")
 
+import pandas_ta as ta
+
 
 @app.route("/")
 def home():
