@@ -11,7 +11,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import pymongo
 from pymongo import MongoClient
 import yfinance as yf
-from pycoingecko import CoinGeckoAPI
 import pandas as pd
 from api.config.config import Config
 import requests
@@ -78,7 +77,7 @@ def fetch_blockchain_data():
         current_date = next_date
 
 
-fetch_blockchain_data()
+# fetch_blockchain_data()
 
 
 def fetch_nasdaq_bitcoin_data():
@@ -104,3 +103,80 @@ def fetch_nasdaq_bitcoin_data():
             )
     except requests.exceptions.RequestException as e:
         print(f"Error fetching Blockchain data: {e}")
+
+
+def fetch_blockchair_data():
+    url = "https://api.blockchair.com/bitcoin/blocks"
+    params = {
+        "limit": 500,
+        "fields": "id,time,transaction_count,output_total,fee_total,block_size",
+    }
+    all_data = []
+
+    # Fetch data in batches
+    start_date = datetime(2014, 1, 1)  # Adjust start date as needed
+    end_date = datetime.now()
+
+    while start_date < end_date:
+        params["offset"] = 0  # Reset offset for each batch
+        params["since"] = int(start_date.timestamp())
+
+        response = requests.get(url, params=params)
+        data = response.json().get("data", [])
+
+        if not data:
+            break
+
+        all_data.extend(data)
+        params["offset"] += 500  # Increase offset for next batch
+
+        print(f"Fetched {len(data)} blocks, total fetched: {len(all_data)}")
+
+        # Increment start_date for next batch (e.g., fetch data monthly)
+        start_date += timedelta(days=30)  # Adjust interval as needed
+
+    # Process and store data
+    processed_data = []
+    for entry in all_data:
+        try:
+            timestamp = datetime.fromtimestamp(int(entry["time"]))
+            entry["timestamp"] = timestamp
+            del entry["time"]
+            processed_data.append(entry)
+        except ValueError:
+            print(f"Skipping entry with invalid timestamp: {entry}")
+
+    store_data("blockchair", processed_data)
+    print(f"Stored {len(processed_data)} blocks into MongoDB")
+
+
+def fetch_cryptocompare_data():
+    url = "https://min-api.cryptocompare.com/data/blockchain/histo/day"
+    params = {
+        "fsym": "BTC",
+        "limit": 2000,
+        "api_key": "d718d3e12f1bb85c3bfb27a1dc5e8844cae07c6d470db8f43d6b31c64681f258",
+    }
+
+    response = requests.get(url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()["Data"]
+
+        data_to_store = []
+
+        for item in data["Data"]:
+            timestamp = datetime.fromtimestamp(item["time"])
+            item["time"] = timestamp.strftime("%Y-%m-%d %H:%M:%S")
+            data_to_store.append(item)
+
+        # Store only the "Data" array itself
+        store_data("cryptocompare_v2", data_to_store)
+
+        print(f"Stored {len(data_to_store)} entries from 'Data' into MongoDB")
+
+    else:
+        print(f"Failed to fetch data. Status code: {response.status_code}")
+
+
+fetch_cryptocompare_data()
