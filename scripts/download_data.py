@@ -179,4 +179,34 @@ def fetch_cryptocompare_data():
         print(f"Failed to fetch data. Status code: {response.status_code}")
 
 
-fetch_cryptocompare_data()
+def fetch_yahoo_finance_intraday_data(ticker="BTC-USD", years=10, interval="1h"):
+    try:
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=years * 365)
+
+        # Initialize an empty DataFrame to hold the combined data
+        combined_data = pd.DataFrame()
+
+        # Fetch data in chunks of less than 730 days
+        while start_date < end_date:
+            chunk_end_date = min(start_date + timedelta(days=729), end_date)
+            print(f"Fetching data from {start_date} to {chunk_end_date}")
+
+            # Fetch the data for the current chunk
+            data = yf.download(
+                ticker, start=start_date, end=chunk_end_date, interval=interval
+            )
+            combined_data = pd.concat([combined_data, data])
+
+            # Move the start date to the next chunk
+            start_date = chunk_end_date
+
+        combined_data.reset_index(inplace=True)
+
+        # Convert to dictionary
+        data_dict = combined_data.to_dict("records")
+        store_data("yahoo-finance-intraday", data_dict)
+        print("Intraday data fetched successfully")
+
+    except Exception as e:
+        print(f"Error fetching Bitcoin data from Yahoo Finance: {e}")

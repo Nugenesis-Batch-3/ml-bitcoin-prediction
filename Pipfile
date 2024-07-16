@@ -26,6 +26,7 @@ tweepy = "*"
 praw = "*"
 bs4 = "*"
 yfinance = "*"
+seaborn = "*"
 
 [scripts]
 post-install = "./post_install.sh"
